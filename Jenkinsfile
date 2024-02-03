@@ -38,6 +38,21 @@ pipeline {
                 }
             }
         }
+           stage('CanaryDeployToProduction') {
+            when {
+                branch 'master'
+            }
+               environment{
+                   Canary_Replicas = 2
+               }
+            steps {
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig',
+                    configs: 'train-schedule-canary.yml',
+                    enableConfigSubstitution: true
+                )
+            }
+        }
         stage('DeployToProduction') {
             when {
                 branch 'master'
