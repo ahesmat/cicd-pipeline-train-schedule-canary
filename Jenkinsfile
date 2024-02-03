@@ -43,7 +43,7 @@ pipeline {
                 branch 'master'
             }
                environment{
-                   Canary_Replicas = 2
+                   CANARY_REPLICAS = 2
                }
             steps {
                 kubernetesDeploy(
